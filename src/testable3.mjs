@@ -5,6 +5,7 @@
 // One that reads the file and one that takes a CSV string and returns the parsed information.
 
 import { parse } from "csv-parse/sync";
+import { readFile } from "node:fs/promises";
 
 export function parsePeopleCsv(csvData) {
   const records = parse(csvData, {
@@ -22,4 +23,9 @@ export function parsePeopleCsv(csvData) {
     }
     return person;
   });
+}
+
+export async function parsePeopleCsvFile(filePath) {
+  const csvData = await readFile(filePath, { encoding: "utf8" });
+  return parsePeopleCsv(csvData);
 }
