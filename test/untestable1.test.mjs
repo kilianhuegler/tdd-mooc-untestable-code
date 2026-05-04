@@ -7,4 +7,14 @@ describe("Untestable 1: days until Christmas", () => {
     const today = new Date(2024, 11, 24);
     expect(daysUntilChristmas(today)).to.equal(1);
   });
+
+  test("Christmas", () => {
+    const today = new Date(2024, 11, 25);
+    expect(daysUntilChristmas(today)).to.equal(0);
+  });
+
+  test("one days after Christmas", () => {
+    const today = new Date(2024, 11, 27);
+    expect(daysUntilChristmas(today)).to.equal(364);
+  })
 });
