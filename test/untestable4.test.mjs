@@ -29,4 +29,20 @@ describe("Untestable 4: enterprise application", () => {
 
     expect(fakeUsers.get(1).passwordHash).to.equal("hashed:newPw");
   });
+
+  test("throws error when old password is wrong", async () => {
+    fakeUsers.set(1, { userId: 1, passwordHash: "hashed:correctPw" });
+
+    let error;
+
+    try {
+      await service.changePassword(1, "wrongPw", "newPw");
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error).to.be.an("error");
+    expect(error.message).to.equal("wrong old password");
+    expect(fakeUsers.get(1).passwordHash).to.equal("hashed:correctPw");
+  });
 });
