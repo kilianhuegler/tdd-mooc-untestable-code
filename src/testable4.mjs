@@ -5,29 +5,15 @@
 // To fix this, PasswordService can be tested in isolation with a fake Dao and a fake hasher,
 // while PostgresUserDao is tested against the real Postgres from docker compose (no in-memory fake -> dead end).
 
-import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
 export class PostgresUserDao {
-  static instance;
-
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new PostgresUserDao();
-    }
-    return this.instance;
+  constructor(config) {
+    this.db = new pg.Pool(config);
   }
 
-  db = new pg.Pool({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
-    port: process.env.PGPORT,
-  });
-
   close() {
-    this.db.end();
+    return this.db.end();
   }
 
   #rowToUser(row) {
