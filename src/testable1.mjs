@@ -9,7 +9,7 @@ export function daysUntilChristmas(today) {
   const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const christmasDay = new Date(now.getFullYear(), 12 - 1, 25);
   if (todayDate.getTime() > christmasDay.getTime()) {
-    christmasDay.setFullYear(new Date().getFullYear() + 1);
+    christmasDay.setFullYear(now.getFullYear() + 1);
   }
   const diffMillis = christmasDay.getTime() - todayDate.getTime();
   return Math.floor(diffMillis / millisPerDay);
