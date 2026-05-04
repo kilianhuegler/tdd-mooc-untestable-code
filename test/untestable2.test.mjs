@@ -16,4 +16,10 @@ describe("Untestable 2: a dice game", () => {
     };
     expect(diceHandValue(stubRandom)).to.equal(4);
   })
+
+  test("dice value boundary", () => {
+    const values = [0.0, 0.99];
+    const stubRandom = () => values.shift();
+    expect(diceHandValue(stubRandom)).to.equal(6);
+  });
 });
