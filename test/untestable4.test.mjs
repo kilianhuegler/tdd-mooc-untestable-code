@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, test } from "vitest";
+import { afterAll, beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { PasswordService, PostgresUserDao } from "../src/testable4.mjs";
 
@@ -44,5 +44,45 @@ describe("Untestable 4: enterprise application", () => {
     expect(error).to.be.an("error");
     expect(error.message).to.equal("wrong old password");
     expect(fakeUsers.get(1).passwordHash).to.equal("hashed:correctPw");
+  });
+});
+
+
+describe("Untestable 4: PostgresUserDao", () => {
+  let dao;
+
+  beforeEach(async () => {
+    dao = new PostgresUserDao({
+      user: "untestable",
+      host: "localhost",
+      database: "untestable",
+      password: "secret",
+      port: 5432,
+    });
+    await dao.db.query("delete from users");
+  });
+
+  afterAll(async () => {
+    await dao.close();
+  });
+
+  test("return null when user does not exist", async () => {
+    const result = await dao.getById(999);
+    expect(result).to.equal(null);
+  });
+
+  test("saves and retrieves a user", async () => {
+    await dao.save({ userId: 1, passwordHash: "hashed:abc" });
+
+    const result = await dao.getById(1);
+    expect(result).to.deep.equal({ userId: 1, passwordHash: "hashed:abc" });
+  });
+
+  test("save updates existing user", async () => {
+    await dao.save({ userId: 1, passwordHash: "hashed:first" });
+    await dao.save({ userId: 1, passwordHash: "hashed:second" });
+
+    const result = await dao.getById(1);
+    expect(result.passwordHash).to.equal("hashed:second");
   });
 });
