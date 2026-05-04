@@ -47,7 +47,6 @@ describe("Untestable 4: enterprise application", () => {
   });
 });
 
-
 describe("Untestable 4: PostgresUserDao", () => {
   let dao;
 

@@ -16,12 +16,12 @@ describe("Untestable 1: days until Christmas", () => {
   test("one day after Christmas", () => {
     const today = new Date(2024, 11, 26);
     expect(daysUntilChristmas(today)).to.equal(364);
-  })
+  });
 
   test("1st January 2024 - leap year", () => {
     const today = new Date(2024, 0, 1);
     expect(daysUntilChristmas(today)).to.equal(359);
-  })
+  });
 
   test("1st January 2025 - non leap year", () => {
     const today = new Date(2025, 0, 1);

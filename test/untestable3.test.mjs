@@ -16,7 +16,7 @@ describe("Untestable 3: CSV file parsing", () => {
   test("parse a row with a missing field", () => {
     const csv = "Yor,Forger,,Female";
     expect(parsePeopleCsv(csv)).to.deep.equal([{ firstName: "Yor", lastName: "Forger", gender: "f" }]);
-  })
+  });
 
   test("parse multiple rows", () => {
     const csv = "Yor,Forger,27,Female\nAnya,Forger,6,Female";

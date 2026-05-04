@@ -15,7 +15,7 @@ describe("Untestable 2: a dice game", () => {
       return callCount === 1 ? 0.0 : 0.5;
     };
     expect(diceHandValue(stubRandom)).to.equal(4);
-  })
+  });
 
   test("dice value boundary", () => {
     const values = [0.0, 0.99];
