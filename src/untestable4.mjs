@@ -1,3 +1,10 @@
+// This code example is untestable because of two problems.
+// The first problem is that it uses a singleton, which is global state in disguise,
+// because PasswordService grabs PostgresUserDao.getInstance() in its field initializer.
+// The second problem is that the database itself is a global variable and it is hard to test, because it needs a real database.
+// To fix this, PasswordService can be tested in isolation with a fake Dao and a fake hasher,
+// while PostgresUserDao is tested against the real Postgres from docker compose (no in-memory fake -> dead end).
+
 import argon2 from "@node-rs/argon2";
 import pg from "pg";
 

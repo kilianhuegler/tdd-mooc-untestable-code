@@ -1,3 +1,8 @@
+// The code is untestable, because it depends on a global random number generator (Math.random).
+// So in the test this cannot be controlled and the outcome is random.
+// Therefore the branches of diceHandValue cannot be tested deterministically and cannot assert the wanted correct behavior.
+// The solution in this case is to inject the random number generator as a dependency.
+
 function diceRoll() {
   const min = 1;
   const max = 6;

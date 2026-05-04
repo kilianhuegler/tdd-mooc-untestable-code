@@ -1,3 +1,7 @@
+// The problem is that the function new Date() reads the system clock directly and a test can not know the current date.
+// Because of that the expected return value changes daily.
+// As fix we can inject the current date as a parameter, as in chapter 3 point 7 Time is mentioned.
+
 const millisPerDay = 24 * 60 * 60 * 1000;
 
 export function daysUntilChristmas() {
