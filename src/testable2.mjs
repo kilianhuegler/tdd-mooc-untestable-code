@@ -3,15 +3,15 @@
 // Therefore the branches of diceHandValue cannot be tested deterministically and cannot assert the wanted correct behavior.
 // The solution in this case is to inject the random number generator as a dependency.
 
-function diceRoll() {
+function diceRoll(random) {
   const min = 1;
   const max = 6;
-  return Math.floor(Math.random() * (max + 1 - min) + min);
+  return Math.floor(random() * (max + 1 - min) + min);
 }
 
-export function diceHandValue() {
-  const die1 = diceRoll();
-  const die2 = diceRoll();
+export function diceHandValue(random) {
+  const die1 = diceRoll(random);
+  const die2 = diceRoll(random);
   if (die1 === die2) {
     // one pair
     return 100 + die1;
